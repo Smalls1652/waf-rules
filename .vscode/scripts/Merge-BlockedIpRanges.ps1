@@ -3,7 +3,9 @@
 param(
     [Parameter(Position = 0)]
     [ValidateNotNullOrEmpty()]
-    [string]$RootDirectory = "."
+    [string]$RootDirectory = ".",
+    [Parameter(Position = 1)]
+    [switch]$CreateCommit
 )
 
 $resolvedRootDirectory = (Resolve-Path -Path $RootDirectory -ErrorAction "Stop").Path
@@ -48,4 +50,13 @@ if ($PSCmdlet.ShouldProcess($ipRangesOutPath, "Update IP ranges data file")) {
 }
 else {
     $ipRangesStringBuilder.ToString().TrimEnd() | Write-Output
+}
+
+if ($CreateCommit) {
+    if ($PSCmdlet.ShouldProcess($ipRangesOutPath, "Commit changes")) {
+        git add "$($ipRangesOutPath)"
+        $currentTimeStamp = [System.DateTimeOffset]::Now.UtcDateTime.ToString("yyyy-MM-dd HH:mm:ss zzz")
+
+        git commit --message "Merged IP ranges [$($currentTimeStamp)]"
+    }
 }

@@ -9,20 +9,23 @@
                 "color": "terminal.ansiGreen"
             },
             "type": "shell",
-            "command": "pwsh",
+            "command": "${workspaceFolder}/.vscode/scripts/Merge-BlockedIpRanges.ps1",
             "args": [
-                "-NoLogo",
-                "-NoProfile",
-                "-ExecutionPolicy",
-                "Bypass",
-                "-File",
-                "${workspaceFolder}/.vscode/scripts/Merge-BlockedIpRanges.ps1",
                 "-RootDirectory",
                 "${workspaceFolder}",
+                "-CreateCommit:$${input:createCommit}",
                 "-Verbose"
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}",
+                "shell": {
+                    "executable": "pwsh",
+                    "args": [
+                        "-NoLogo",
+                        "-NoProfile",
+                        "-Command"
+                    ]
+                }
             },
             "problemMatcher": [],
             "presentation": {
@@ -33,6 +36,24 @@
                 "showReuseMessage": true,
                 "clear": true
             }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "createCommit",
+            "description": "Create a commit of the changes?",
+            "type": "pickString",
+            "default": "false",
+            "options": [
+                {
+                    "label": "Yes",
+                    "value": "true"
+                },
+                {
+                    "label": "No",
+                    "value": "false"
+                }
+            ]
         }
     ]
 }
