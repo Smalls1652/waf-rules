@@ -1,0 +1,9 @@
+{
+    "task.autoDetect": "off",
+    "task.quickOpen.history": 0,
+    "yaml.schemas": {
+        "./.vscode/schemas/blocked-ip-range.schema.json": [
+            "/blocked_ip_ranges/*.yml"
+        ]
+    }
+}

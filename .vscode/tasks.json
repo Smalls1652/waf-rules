@@ -1,0 +1,38 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Merge IP ranges to data file",
+            "detail": "Merges all IP ranges into the data file.",
+            "icon": {
+                "id": "merge",
+                "color": "terminal.ansiGreen"
+            },
+            "type": "shell",
+            "command": "pwsh",
+            "args": [
+                "-NoLogo",
+                "-NoProfile",
+                "-ExecutionPolicy",
+                "Bypass",
+                "-File",
+                "${workspaceFolder}/.vscode/scripts/Merge-BlockedIpRanges.ps1",
+                "-RootDirectory",
+                "${workspaceFolder}",
+                "-Verbose"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        }
+    ]
+}
